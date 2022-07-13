@@ -1,0 +1,6 @@
+aiohttp
+imgbb
+Pillow
+requests
+python-dotenv
+pyperclip
