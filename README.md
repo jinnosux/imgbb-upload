@@ -3,7 +3,7 @@ A script that converts image from windows clipboard to (imgbb uploaded) link
 
 ## Prequisites:
 - python 3.7+
-- imgbb key (create an account on imgbb.com and get free api token. than, add it to .env file in this dir as imgbb-token = "paste-your-token-here" )
+- imgbb free token (create an account on imgbb.com and get free api token. than, add it to .env file in this dir as imgbb-token = "paste-your-token-here" )
 - pip -r requirements.txt
 
 ## Usage:
