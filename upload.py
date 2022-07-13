@@ -14,12 +14,12 @@ load_dotenv()
 key = os.getenv('imgbb-token')
 
 yes = {'yes','y', 'ye', ''}
-no = {'no','n'}
 
 image_folder = "./images/"
 image_rand = ''.join((random.choice('qwertyuiopasdfghjklzxcvbnm') for i in range(8)))
 image_name = image_folder + image_rand + ".png"
 im = ImageGrab.grabclipboard()
+
 try:
     print("Copying image from clipboard...")
     im.save(image_name,'PNG')
@@ -34,8 +34,10 @@ async def upload(image,name):
     myclient = Client(key,session)
     response = await myclient.post(image,name)
     url = response['data']['url']
+
     pyperclip.copy(url)
     print(f'Uploaded image URL({url}) copied to clipboard.')
+
     await session.close()
 
 if __name__=='__main__':
@@ -45,5 +47,6 @@ if __name__=='__main__':
     if choice in yes:
         if os.path.exists(image_name):
             os.remove(image_name)
-    elif choice in no:
+        print("Image deleted locally.")
+    else:
         exit()
