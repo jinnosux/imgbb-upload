@@ -13,6 +13,9 @@ from dotenv import load_dotenv
 load_dotenv()
 key = os.getenv('imgbb-token')
 
+yes = {'yes','y', 'ye', ''}
+no = {'no','n'}
+
 image_folder = "./images/"
 image_rand = ''.join((random.choice('qwertyuiopasdfghjklzxcvbnm') for i in range(8)))
 image_name = image_folder + image_rand + ".png"
@@ -37,4 +40,10 @@ async def upload(image,name):
 
 if __name__=='__main__':
     asyncio.run(upload(image_name,image_rand))
-    
+    print("Want to delete local image (y/n) ?")
+    choice = input().lower()
+    if choice in yes:
+        if os.path.exists(image_name):
+            os.remove(image_name)
+    elif choice in no:
+        exit()
