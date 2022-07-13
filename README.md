@@ -1,5 +1,5 @@
 # imgbb-upload
-A script that converts image from windows clipboard to (imgbb uploaded) link
+A script that uploads image from windows-native clipboard to imgbb, and copies the uploaded link back into clipboard
 
 ## Prequisites:
 - python 3.7+
@@ -7,6 +7,6 @@ A script that converts image from windows clipboard to (imgbb uploaded) link
 - pip -r requirements.txt
 
 ## Usage:
-- In windows, use native `win key + shift + s` to select image from screen. 
-- Run `python upload.py` and it will upload it to imgbb, and copy image link to clipboard
+- In windows, use `win key + shift + s` open a Snip/Screenshot tool and select image from screen. 
+- Run `python upload.py` and it will upload selected image to imgbb, and copy image link back into clipboard
 - Either delete or save image locally (in /images)
