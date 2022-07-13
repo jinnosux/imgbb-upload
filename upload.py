@@ -13,35 +13,44 @@ from dotenv import load_dotenv
 load_dotenv()
 key = os.getenv('imgbb-token')
 
-yes = {'yes','y', 'ye', ''}
+if key == None:
+    print("Token not loaded/found. Aborting")
+    exit()
 
+yes = {'yes','y', 'ye', ''}
 image_folder = "./images/"
 image_rand = ''.join((random.choice('qwertyuiopasdfghjklzxcvbnm') for i in range(8)))
 image_name = image_folder + image_rand + ".png"
-im = ImageGrab.grabclipboard()
 
-try:
-    print("Copying image from clipboard...")
-    im.save(image_name,'PNG')
-    time.sleep(1)
-except:
-    print("Looks like clipboard is empty.")
-    exit()
+def copy_image_from_clipboard():
+    im = ImageGrab.grabclipboard()
 
-async def upload(image,name):
+    try:
+        print("Copying image from clipboard...")
+        im.save(image_name,'PNG')
+        time.sleep(1)
+    except AttributeError:
+        print("Looks like clipboard is empty.")
+        exit()
+
+
+async def upload_to_imgbb(image,name):
     print("Uploading Image...")
     session = aiohttp.ClientSession()
-    myclient = Client(key,session)
-    response = await myclient.post(image,name)
+    imgbb = Client(key,session)
+
+    response = await imgbb.post(image,name)
     url = response['data']['url']
 
     pyperclip.copy(url)
     print(f'Uploaded image URL({url}) copied to clipboard.')
-
     await session.close()
 
+
 if __name__=='__main__':
-    asyncio.run(upload(image_name,image_rand))
+    copy_image_from_clipboard()
+    asyncio.run(upload_to_imgbb(image_name,image_rand))
+
     print("Want to delete local image (y/n) ?")
     choice = input().lower()
     if choice in yes:
